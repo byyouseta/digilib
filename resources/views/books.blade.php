@@ -40,7 +40,9 @@
                                         <tr>
                                             <td>{{ $data->nama }}</td>
                                             <td>{{ $data->penulis }}</td>
-                                            <td>{{ $data->kategori->nama }}</td>
+                                            <td>
+                                                {{ $data->kategori->nama }}
+                                            </td>
                                             <td>{{ $data->tahun }}</td>
                                             <td>
                                                 <div class="col text-center">
@@ -78,9 +80,9 @@
     </section>
 
     <div class="modal fade" id="modal-default">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form method="POST" action="/book/store">
+                <form method="POST" action="/book/store" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title"><i class="fas fa-book-medical"></i> Tambah </h5>
@@ -93,7 +95,7 @@
                             <!-- text input -->
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Nama</label>
+                                    <label>Nama Buku/Jurnal</label>
                                     <input type="text" class="form-control" placeholder="Masukkan Nama Buku" name="nama"
                                         value="{{ old('nama') }}">
                                     @if ($errors->has('nama'))
@@ -106,7 +108,7 @@
                                     <label>Kategori</label>
                                     <select class="form-control" name="kategori_id">
                                         <option value="" selected>Pilih Kategori</option>
-                                        @foreach ($data as $ketegori)
+                                        @foreach ($data2 as $kategori)
                                             <option value="{{ $kategori->id }}"
                                                 {{ old('kategori_id') == $kategori->id ? 'selected' : '' }}>
                                                 {{ $kategori->nama }}</option>
@@ -156,16 +158,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="customFile">File Upload</label>
-
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Pilih/drop file disini</label>
-                                        <small> File dalam bentuk pdf dengan maksimal ukuran file 5MB</small>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
                                     <label>Tag</label>
                                     <textarea class="form-control" rows="3"
                                         placeholder="Masukkan Tag/ Label untuk Buku/ Jurnal ini"
@@ -173,6 +165,21 @@
                                     @if ($errors->has('tag'))
                                         <div class="text-danger">
                                             {{ $errors->first('tag') }}
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="customFile">File Upload</label>
+
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile" name="file">
+                                        <label class="custom-file-label" for="customFile">Pilih/drop file disini</label>
+                                        <small> File dalam bentuk pdf dengan maksimal ukuran file 5MB</small>
+                                    </div>
+                                    @if ($errors->has('file'))
+                                        <div class="text-danger">
+                                            {{ $errors->first('file') }}
                                         </div>
                                     @endif
                                 </div>
@@ -241,42 +248,5 @@
             bsCustomFileInput.init();
         });
     </script>
-    <script>
-        $('.disable-account').on('click', function(event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
-            Swal.fire({
-                title: 'Apa kamu yakin?',
-                text: "User akan dinonaktifkan dari sistem",
-                icon: 'error',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Non Aktifkan!',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            })
-        });
-        $('.reset-password').on('click', function(event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
-            Swal.fire({
-                title: 'Apa kamu yakin?',
-                text: "Password akan direset sesuai tanggal lahir User",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Reset!',
-                cancelButtonText: 'Batal',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            })
-        });
-    </script>
+
 @endsection

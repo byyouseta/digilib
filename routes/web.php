@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('weblayouts.main');
+// });
+Route::get('/', 'WebController@index')->name('web.index');
+Route::post('/kontak/pesan', 'WebController@pesan')->name('web.pesan');
+Route::get('/kontak', function () {
+    return view('weblayouts.kontak');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -33,6 +34,10 @@ Route::get('/user/trash', 'UserController@trash')->name('user.trash');
 Route::get('/user/activate/{id}', 'UserController@activate')->name('user.activate');
 
 Route::get('/book', 'BookController@index')->name('book.index');
+Route::post('/book/store', 'BookController@store')->name('book.store');
+Route::get('/book/edit/{id}', 'BookController@edit')->name('book.edit');
+Route::get('/book/view/{id}', 'BookController@view')->name('book.view');
+Route::post('/book/update/{id}', 'BookController@update')->name('book.update');
 
 Route::get('/kategori', 'KategoriController@index')->name('kategori.index');
 Route::post('/kategori/store', 'KategoriController@store')->name('kategori.store');

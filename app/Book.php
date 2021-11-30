@@ -10,7 +10,7 @@ class Book extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'nama', 'tahun', 'penerbit', 'penulis', 'jenis', 'dilihat', 'file', 'abstrak', 'tag'
+        'nama', 'tahun', 'penerbit', 'penulis', 'jenis', 'dilihat', 'file', 'abstrak', 'tag', 'id_kategori'
     ];
 
     public function kategori()
