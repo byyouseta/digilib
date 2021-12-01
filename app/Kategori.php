@@ -17,4 +17,11 @@ class Kategori extends Model
     {
         return $this->hasMany('App\Book');
     }
+
+    public static function dokumen()
+    {
+        $dokumen = Kategori::all();
+
+        return $dokumen;
+    }
 }

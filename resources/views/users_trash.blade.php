@@ -32,6 +32,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Akses</th>
+                                        <th>Non Aktif</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -48,6 +49,7 @@
                                                     User
                                                 @endif
                                             </td>
+                                            <td>{{ \Carbon\Carbon::parse($data->deleted_at)->format('d M Y h:m') }}</td>
                                             <td>
                                                 <div class="col text-center">
                                                     <div class="btn-group">

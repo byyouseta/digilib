@@ -15,21 +15,42 @@
                     </div>
                     <div class="col-7">
                         <form method="POST" action="/kontak/pesan">
+                            @csrf
                             <div class="form-group">
                                 <label for="inputName">Nama Lengkap</label>
-                                <input type="text" id="inputName" class="form-control" />
+                                <input type="text" id="inputName" class="form-control" name="pengirim" />
+                                @if ($errors->has('pengirim'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('pengirim') }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail">E-Mail</label>
-                                <input type="email" id="inputEmail" class="form-control" />
+                                <input type="email" id="inputEmail" class="form-control" name="email" />
+                                @if ($errors->has('email'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('email') }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="inputSubject">Perihal</label>
-                                <input type="text" id="inputSubject" class="form-control" />
+                                <input type="text" id="inputSubject" class="form-control" name="perihal" />
+                                @if ($errors->has('perihal'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('perihal') }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="inputMessage">Pesan</label>
-                                <textarea id="inputMessage" class="form-control" rows="4"></textarea>
+                                <textarea id="inputMessage" class="form-control" rows="4" name="pesan"></textarea>
+                                @if ($errors->has('pesan'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('pesan') }}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i>

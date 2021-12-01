@@ -36,9 +36,11 @@
                 </div>
                 <div class="card-body">
                     @foreach ($data as $recent)
-                        <p class="card-text">Judul : {{ $recent->nama }}<br>
+                        <p class="card-text">Judul : <a href="/detail/{{ $recent->nama }}"> {{ $recent->nama }}
+                            </a><br>
                             Penulis : {{ $recent->penulis }} <br>
-                            [Abstrak]</p>
+                            Rilis {{ \Carbon\Carbon::parse($recent->created_at)->format('d M Y h:m') }}
+                        </p>
                     @endforeach
 
                     {{-- <p class="card-text">Buku</p> --}}
@@ -53,9 +55,10 @@
                 </div>
                 <div class="card-body">
                     @foreach ($data2 as $lihat)
-                        <p class="card-text">Judul : {{ $lihat->nama }}<br>
+                        <p class="card-text">Judul : <a href="/detail/{{ $lihat->nama }}"> {{ $lihat->nama }}
+                            </a><br>
                             Penulis : {{ $lihat->penulis }} <br>
-                            [Abstrak] dilihat {{ $lihat->dilihat }}
+                            Dilihat {{ $lihat->dilihat }}
                             @if (empty($lihat->dilihat))
                                 0
                             @endif

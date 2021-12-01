@@ -15,10 +15,16 @@
 //     return view('weblayouts.main');
 // });
 Route::get('/', 'WebController@index')->name('web.index');
+Route::get('/cari', 'WebController@cari')->name('web.cari');
+Route::get('/detail/{id}', 'WebController@detail')->name('web.detail');
 Route::post('/kontak/pesan', 'WebController@pesan')->name('web.pesan');
+Route::get('/lihat/{id}', 'WebController@lihat')->name('web.lihat')->middleware('auth');
 Route::get('/kontak', function () {
     return view('weblayouts.kontak');
 });
+// Route::get('/daftar', function () {
+//     return view('weblayouts.daftar');
+// });
 
 Auth::routes();
 
