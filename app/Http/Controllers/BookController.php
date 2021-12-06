@@ -7,6 +7,7 @@ use App\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
 
 use File;
 
@@ -14,7 +15,7 @@ class BookController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'cek']);
     }
 
     public function index()
@@ -36,11 +37,25 @@ class BookController extends Controller
             'nama' => 'required|unique:books,nama',
             'kategori_id' => 'required',
             'penerbit' => 'required',
-            'tahun' => 'required|numeric',
+            'tahun' => 'required|numeric|max:' . Carbon::now()->isoformat('Y'),
             'penulis' => 'required',
             'tag' => 'required',
             'abstrak' => 'required',
             'file' => 'mimes:pdf|max:5140',
+        ], [
+            'nama.required' => 'Kolom Judul harus diisi!',
+            'nama.unique' => 'Judul yang dimasukkan sudah pernah dimasukkan.',
+            'kategori_id.required' => 'Kolom Kategori harus diisi!',
+            'penerbit.required' => 'Kolom Penerbit harus diisi!',
+            'tahun.required' => 'Kolom Tahun harus diisi!',
+            'tahun.numeric' => 'Kolom Tahun harus Angka!',
+            'tahun.max' => 'Maksimal tahun yang dimasukkan adalah ' . Carbon::now()->isoformat('Y'),
+            'penulis.required' => 'Kolom Penulis harus diisi!',
+            'tag.required' => 'Kolom Tag harus diisi!',
+            'abstrak.required' => 'Kolom Abstrak harus diisi!',
+            'file.mimes' => 'File yang diperbolehkan adalah PDF!',
+            'file.max' => 'Ukuran file tidak boleh lebih dari 5MB!',
+
         ]);
 
         $book = new Book();
@@ -91,11 +106,25 @@ class BookController extends Controller
             'nama' => 'required| unique:books,nama,' . $id,
             'kategori_id' => 'required',
             'penerbit' => 'required',
-            'tahun' => 'required|numeric',
+            'tahun' => 'required|numeric|max:' . Carbon::now()->isoformat('Y'),
             'penulis' => 'required',
             'tag' => 'required',
             'abstrak' => 'required',
             'file' => 'mimes:pdf|max:5140',
+        ], [
+            'nama.required' => 'Kolom Judul harus diisi!',
+            'nama.unique' => 'Judul yang dimasukkan sudah pernah dimasukkan.',
+            'kategori_id.required' => 'Kolom Kategori harus diisi!',
+            'penerbit.required' => 'Kolom Penerbit harus diisi!',
+            'tahun.required' => 'Kolom Tahun harus diisi!',
+            'tahun.numeric' => 'Kolom Tahun harus Angka!',
+            'tahun.max' => 'Maksimal tahun yang dimasukkan adalah ' . Carbon::now()->isoformat('Y'),
+            'penulis.required' => 'Kolom Penulis harus diisi!',
+            'tag.required' => 'Kolom Tag harus diisi!',
+            'abstrak.required' => 'Kolom Abstrak harus diisi!',
+            'file.mimes' => 'File yang diperbolehkan adalah PDF!',
+            'file.max' => 'Ukuran file tidak boleh lebih dari 5MB!',
+
         ]);
 
         $book = Book::find($id);

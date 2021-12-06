@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('template/dist/img/LogoRSUP.png') }}">
     <title>PERPUSTAKAAN DIGITAL RSUP SURAKARTA</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -36,10 +37,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/home" class="brand-link text-center">
-                {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8"> --}}
-                <span class="brand-text font-weight-light">DIGILIB</span>
+            <a href="/home" class="brand-link">
+                <div class="text-center">
+                    <img src="{{ asset('template/dist/img/LogoRSUP.png') }}" alt="AdminLTE Logo"
+                        class="img-circle elevation-3" style="opacity: .8">
+                    <span class="brand-text font-weight-light">DIGILIB</span>
+                </div>
             </a>
 
             <!-- Sidebar -->

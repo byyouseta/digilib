@@ -8,6 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('template/dist/img/LogoRSUP.png') }}">
     <title>PERPUSTAKAAN DIGITAL RSUP SURAKARTA</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -61,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 {{-- @csrf --}}
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-lg"
-                                        placeholder="Ketikkan Pencarian Anda disini" name="cari" @if (Request::get('cari'))
+                                        placeholder="Ketikkan Kata Kunci" name="cari" @if (Request::get('cari'))
                                     value="{{ Request::get('cari') }}"
                                     @endif
                                     >
@@ -107,8 +108,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE App -->
     <script src="{{ asset('template/dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('template/dist/js/demo.js') }}"></script>
-    {{-- Session Sweet Alert --}}
+    {{-- <script src="{{ asset('template/dist/js/demo.js') }}"></script> --}}
+    @hasSection('plugin')
+        @yield('plugin')
+    @endif
     @if (session()->has('sukses'))
         <script>
             // swal.fire({

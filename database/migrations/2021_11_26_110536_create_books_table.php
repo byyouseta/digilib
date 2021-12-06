@@ -20,8 +20,8 @@ class CreateBooksTable extends Migration
             $table->string('penerbit', 50);
             $table->string('penulis', 100);
             $table->integer('kategori_id');
-            $table->bigInteger('dilihat');
-            $table->string('file');
+            $table->bigInteger('dilihat')->nullable();
+            $table->string('file')->nullable();
             $table->text('abstrak');
             $table->text('tag');
             $table->softDeletes();

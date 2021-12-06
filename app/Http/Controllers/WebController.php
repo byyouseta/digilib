@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use App\Pesan;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
+use Captcha;
+use Illuminate\Support\Facades\Hash;
 
 class WebController extends Controller
 {
@@ -42,7 +45,7 @@ class WebController extends Controller
                 ->orWhere('books.abstrak', 'like', '%' . $cari . '%')
                 ->orWhere('books.tag', 'like', '%' . $cari . '%')
                 ->orderBy('books.created_at', 'asc')
-                ->paginate(10);
+                ->paginate(5);
             $query->appends(['cari' => $cari]);
             // dd($query);
             // return data ke view
@@ -73,7 +76,14 @@ class WebController extends Controller
             'email' => 'required|email',
             'pesan' => 'required',
             'perihal' => 'required',
-
+            'captcha' => ['required', 'captcha'],
+        ], [
+            'pengirim.required' => 'Kolom Pengirim harus diisi!',
+            'email.required' => 'Kolom Email harus diisi!',
+            'email.email' => 'Cek kembali nama Email Anda',
+            'pesan.required' => 'Kolom Perihal harus diisi!',
+            'perihal.required' => 'Kolom Perihal harus diisi',
+            'capcha.required' => 'Kolom Captcha harus diisi',
         ]);
 
         $pesan = new Pesan();
@@ -81,6 +91,7 @@ class WebController extends Controller
         $pesan->pesan = $request->pesan;
         $pesan->email = $request->email;
         $pesan->perihal = $request->perihal;
+        $pesan->dibaca = 0;
 
         $pesan->save();
 
@@ -100,5 +111,47 @@ class WebController extends Controller
         //    echo file_get_contents($this->file_to_download);
         //}, $file.'.pdf');
         return response()->file($this->file_to_download);
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img('flat')]);
+    }
+
+    public function password($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+
+        /*
+        * Validate all input fields
+        */
+        $this->validate(
+            $request,
+            [
+                'old_password' => 'required',
+                'password' => 'required|confirmed|min:8|different:old_password',
+            ],
+            [
+                'old_password.required' => 'Password lama harus diisi!',
+                'password.required' => 'Password baru harus diisi!',
+                'password.confirmed' => 'Konfirmasi Password tidak sesuai dengan Password Baru!',
+                'password.min' => 'Password minimal harus 8 karakter!',
+                'password.different' => 'Password baru tidak boleh sama dengan password Baru!',
+            ]
+        );
+
+        if (Hash::check($request->old_password, $user->password)) {
+            $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+
+            Session::flash('sukses', 'Password berhasil diperbaharui');
+            //$request->session()->flash('sukses', 'Password berhasil diubah');
+            return redirect('/password');
+        } else {
+            Session::flash('error', 'Password lama tidak sama dengan didata');
+            //$request->session()->flash('error', 'Password lama tidak sama dengan didata');
+            return redirect('/password');
+        }
     }
 }

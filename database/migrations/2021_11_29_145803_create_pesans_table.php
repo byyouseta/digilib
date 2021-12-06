@@ -19,6 +19,7 @@ class CreatePesansTable extends Migration
             $table->string('email', 100);
             $table->string('perihal');
             $table->string('pesan');
+            $table->boolean('dibaca');
             $table->softDeletes();
             $table->timestamps();
         });

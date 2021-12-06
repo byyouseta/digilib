@@ -1,9 +1,9 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
     <div class="container">
         <a href="/" class="navbar-brand">
-            {{-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-            <span class="brand-text font-weight-light">DigiLib RSUP Surakarta</span>
+            <img src="{{ asset('template/dist/img/LogoRSUP.png') }}" alt="RSUP Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">DigiLib</span>
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -61,11 +61,14 @@
                         class="nav-link dropdown-toggle">{{ Auth::user()->name }}</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         @if (Auth::user()->akses == '1')
-                            <li><a href="/home" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> Home</a></li>
+                            <li><a href="/home" class="dropdown-item"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                            </li>
                         @endif
+                        <li><a href="/password" class="dropdown-item"><i class="fas fa-lock"></i> Change Password</a>
+                        </li>
                         <li><a href="#" class="dropdown-item"
                                 onclick="event.preventDefault();
-                                                                                document.getElementById('logout-form').submit();"><i
+                                                                                                        document.getElementById('logout-form').submit();"><i
                                     class="fas fa-sign-out-alt"></i> Logout</a>
                         </li>
                         {{-- <li><a href="#" class="dropdown-item">Some other action</a></li> --}}

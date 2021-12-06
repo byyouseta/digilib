@@ -13,7 +13,7 @@ class UserController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'cek']);
     }
 
     public function index()
@@ -38,6 +38,21 @@ class UserController extends Controller
             'nik' => 'required|min:16|unique:users,nik',
             'nohp' => 'required|numeric|digits_between:10,13',
             'pekerjaan' => 'required',
+        ], [
+            'name.required' => 'Kolom Nama harus diisi!',
+            'email.required' => 'Kolom Email harus diisi!',
+            'email.email' => 'Cek kembali nama Email Anda!',
+            'email.unique' => 'Nama Email sudah pernah digunakan',
+            'akses.required' => 'Kolom Akses harus diisi!',
+            'alamat.required' => 'Kolom Alamat harus diisi',
+            'lahir.required' => 'Kolom Tanggal Lahir harus diisi',
+            'nik.required' => 'Kolom NIK harus diisi',
+            'nik.min' => 'Minimal 16 Karakter untuk NIK',
+            'nik.unique' => 'NIK sudah terdaftar didalam sistem',
+            'nohp.required' => 'Kolom No Handphone harus diisi',
+            'nohp.numeric' => 'No Handphone harus dalam bentuk Angka',
+            'nik.digits_between' => 'Karakter yang diperbolehkan diantara 10 dampai 13',
+            'pekerjaan.required' => 'Kolom pekerjaan harus diisi',
         ]);
 
         //Parsing data lahir
@@ -83,6 +98,21 @@ class UserController extends Controller
             'alamat' => 'required',
             'lahir' => 'required',
             'pekerjaan' => 'required',
+        ], [
+            'name.required' => 'Kolom Nama harus diisi!',
+            'email.required' => 'Kolom Email harus diisi!',
+            'email.email' => 'Cek kembali nama Email Anda!',
+            'email.unique' => 'Nama Email sudah pernah digunakan',
+            'akses.required' => 'Kolom Akses harus diisi!',
+            'alamat.required' => 'Kolom Alamat harus diisi',
+            'lahir.required' => 'Kolom Tanggal Lahir harus diisi',
+            'nik.required' => 'Kolom NIK harus diisi',
+            'nik.min' => 'Minimal 16 Karakter untuk NIK',
+            'nik.unique' => 'NIK sudah terdaftar didalam sistem',
+            'nohp.required' => 'Kolom No Handphone harus diisi',
+            'nohp.numeric' => 'No Handphone harus dalam bentuk Angka',
+            'nik.digits_between' => 'Karakter yang diperbolehkan diantara 10 dampai 13',
+            'pekerjaan.required' => 'Kolom pekerjaan harus diisi',
         ]);
 
         //Parsing data lahir

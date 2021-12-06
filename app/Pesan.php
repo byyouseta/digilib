@@ -10,6 +10,13 @@ class Pesan extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'pengirim', 'email', 'pesan', 'perihal'
+        'pengirim', 'email', 'pesan', 'perihal', 'dibaca'
     ];
+
+    public static function dibaca()
+    {
+        $baru = Pesan::where('dibaca', '=', 0)->count();
+
+        return $baru;
+    }
 }

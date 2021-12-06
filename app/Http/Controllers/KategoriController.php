@@ -11,7 +11,7 @@ class KategoriController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'cek']);
     }
 
     public function index()
@@ -29,6 +29,8 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama' => 'required',
             // 'keterangan' => 'required',
+        ], [
+            'nama.required' => 'Kolom Nama harus diisi!'
         ]);
 
         $kategori = new Kategori();
@@ -51,10 +53,17 @@ class KategoriController extends Controller
     public function update($id, Request $request)
     {
 
-        $this->validate($request, [
-            'nama' => 'required',
-            'keterangan' => 'required',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'nama' => 'required',
+                'keterangan' => 'required',
+            ],
+            [
+                'nama.required' => 'Kolom Nama harus diisi!',
+                'keterangan.required' => 'Kolom Keterangan harus diisi!',
+            ]
+        );
 
         $unit = Kategori::find($id);
         $unit->nama = $request->nama;

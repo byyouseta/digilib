@@ -39,7 +39,7 @@
                         <p class="card-text">Judul : <a href="/detail/{{ $recent->nama }}"> {{ $recent->nama }}
                             </a><br>
                             Penulis : {{ $recent->penulis }} <br>
-                            Rilis {{ \Carbon\Carbon::parse($recent->created_at)->format('d M Y h:m') }}
+                            Rilis {{ \Carbon\Carbon::parse($recent->created_at)->format('d M Y H:i:s') }}
                         </p>
                     @endforeach
 
